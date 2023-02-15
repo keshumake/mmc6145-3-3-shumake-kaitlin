@@ -1,5 +1,5 @@
 import BookPreview from "../../components/bookPreview";
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './style.module.css'
 
 export default function Search() {
@@ -18,6 +18,16 @@ export default function Search() {
   // This function MUST prevent repeat searches if:
   // fetch has not finished
   // the query is unchanged
+
+  useEffect(() => {
+    async function getItems() {
+      const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=YOUR_QUERY')
+      const books = await result.json()
+      setItems(books)
+    }
+    getItems()
+  },[]
+  )
 
   const inputRef = useRef()
   const inputDivRef = useRef()

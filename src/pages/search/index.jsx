@@ -19,15 +19,11 @@ export default function Search() {
   // fetch has not finished
   // the query is unchanged
 
-  useEffect(() => {
-    async function getItems() {
-      const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=YOUR_QUERY')
-      const books = await result.json()
-      setItems(books)
-    }
-    getItems()
-  },[]
-  )
+  async function getItems() {
+    const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=YOUR_QUERY')
+    const books = await result.json()
+    setItems(books)
+  }
 
   const inputRef = useRef()
   const inputDivRef = useRef()
@@ -35,11 +31,8 @@ export default function Search() {
   return (
     <main className={styles.search}>
       <h1>Book Search</h1>
-      {/* TODO: add an onSubmit handler */
-        <form onSubmit={setBookSearchResults}>
-        </form>
-      }
-      <form className={styles.form}>
+      {/* TODO: add an onSubmit handler */}
+      <form className={styles.form} onSubmit={getItems}>
         <label htmlFor="book-search">Search by author, title, and/or keywords:</label>
         <div ref={inputDivRef}>
           {/* TODO: add value and onChange props to the input element based on query/setQuery */

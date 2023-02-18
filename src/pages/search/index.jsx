@@ -35,11 +35,16 @@ export default function Search() {
   return (
     <main className={styles.search}>
       <h1>Book Search</h1>
-      {/* TODO: add an onSubmit handler */}
+      {/* TODO: add an onSubmit handler */
+        <form onSubmit={setBookSearchResults}>
+        </form>
+      }
       <form className={styles.form}>
         <label htmlFor="book-search">Search by author, title, and/or keywords:</label>
         <div ref={inputDivRef}>
-          {/* TODO: add value and onChange props to the input element based on query/setQuery */}
+          {/* TODO: add value and onChange props to the input element based on query/setQuery */
+          <input type="text" value={query} onChange={e => setQuery(e.query.value)} />
+        }
           <input
             ref={inputRef}
             type="text"
@@ -57,7 +62,9 @@ export default function Search() {
         ? <Loading />
         : bookSearchResults?.length
         ? <div className={styles.bookList}>
-            {/* TODO: render BookPreview components for each search result here based on bookSearchResults */}
+            {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
+            
+            }
           </div>
         : <NoResults
           {...{inputRef, inputDivRef, previousQuery}}

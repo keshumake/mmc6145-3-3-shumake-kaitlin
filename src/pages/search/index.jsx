@@ -63,7 +63,7 @@ export default function Search() {
         : bookSearchResults?.length
         ? <div className={styles.bookList}>
             {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
-            
+            <bookSearchResults BookPreview={books} />
             }
           </div>
         : <NoResults

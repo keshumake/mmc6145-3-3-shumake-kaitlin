@@ -25,14 +25,14 @@ export default function Search() {
     setItems(query)
   }
 
-  setBookSearchResults() {
-      BookPreview.map(query => {
+  function setBookSearchResults() {
+      // BookPreview.map(query => {
      title = bookSearchResults.title,
      authors = bookSearchResults.authors,
      thumbnail = bookSearchResults.thumbnail,
      previewLink = bookSearchResults.previewLink
             
-  })
+  }
   
 
 

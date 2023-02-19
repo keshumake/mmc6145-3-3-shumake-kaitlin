@@ -20,13 +20,26 @@ export default function Search() {
   // the query is unchanged
 
   async function getItems() {
-    const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=YOUR_QUERY')
-    const books = await result.json()
-    setItems(books)
+    const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=${query}')
+    const query = await result.json()
+    setItems(query)
   }
+
+  setBookSearchResults() {
+      BookPreview.map(query => {
+     title = bookSearchResults.title,
+     authors = bookSearchResults.authors,
+     thumbnail = bookSearchResults.thumbnail,
+     previewLink = bookSearchResults.previewLink
+            
+  })
+  
+
 
   const inputRef = useRef()
   const inputDivRef = useRef()
+
+  
 
   return (
     <main className={styles.search}>
@@ -56,7 +69,12 @@ export default function Search() {
         : bookSearchResults?.length
         ? <div className={styles.bookList}>
             {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
-            <bookSearchResults BookPreview={books} />
+            <bookSearchResults 
+              title={BookPreview.title}
+              authors={BookPreview.authors}
+              thumbnail={BookPreview.thumbnail}
+              previewLink={BookPreview.previewLink}
+             />
             }
           </div>
         : <NoResults

@@ -21,9 +21,11 @@ export default function Search() {
 
   async function getItems(e) {
     e.preventDefault()
-    const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=${query}')
-    const query = await result.json()
-    setBookSearchResults(query)
+    setFetching(true)
+    const result = await fetch(`https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=${query}`)
+    const results = await result.json()
+    setBookSearchResults(results)
+    setFetching(false)
   }
   
   
@@ -33,7 +35,17 @@ export default function Search() {
   const inputDivRef = useRef()
 
   
+  console.log('query', query)
+  console.log('bookSearchResults', bookSearchResults)
+  console.log('previousQuery', previousQuery)
+  console.log('fetching', fetching)
 
+  /**
+   *   × should not call Books API again if query is unchanged
+     × should not call Books API again until previous request is done
+     × should NOT call Books API when search field is blank
+   * 
+   */
   return (
     <main className={styles.search}>
       <h1>Book Search</h1>
@@ -49,9 +61,12 @@ export default function Search() {
             name="book-search"
             id="book-search"
             value={query} 
-            onChange={e => setQuery(e.query.Search)} 
+            onChange={e => {
+              console.log('e ', e);
+              setPreviousQuery(query);
+              setQuery(e.target.value)}} 
             />
-          <button type="submit">Submit</button>
+          <button disabled={query == previousQuery || fetching == true || query  == ''} type="submit">Submit</button>
         </div>
       </form>
       {
@@ -60,13 +75,15 @@ export default function Search() {
         // else show the NoResults component
         fetching
         ? <Loading />
-        : bookSearchResults?.length
+        : bookSearchResults?.items?.length > 0
         ? <div className={styles.bookList}>
             {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
-         
-            bookSearchResults.map(({book, index}) => <BookPreview title={title} authors={authors} thumbnail={thumbnail} previewLink={previewLink} />)
-
-            
+            bookSearchResults
+            ?.items.map((item) => {
+              const {authors, title, previewLink, imageLinks} = item.volumeInfo;
+              console.log('item ', item);
+              return (<BookPreview title={title} authors={authors} thumbnail={imageLinks.thumbnail} previewLink={previewLink} />);
+          })
       }
           </div>
         : <NoResults

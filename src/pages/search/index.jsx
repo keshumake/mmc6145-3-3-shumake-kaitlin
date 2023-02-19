@@ -25,11 +25,6 @@ export default function Search() {
     const query = await result.json()
     setBookSearchResults(query)
   }
-
-     title = BookPreview.title,
-     authors = BookPreview.authors,
-     thumbnail = BookPreview.thumbnail,
-     previewLink = BookPreview.previewLink
   
   
 
@@ -68,12 +63,11 @@ export default function Search() {
         ? <div className={styles.bookList}>
             {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
          
-            <bookSearchResults 
-            // {
-            //   {...{title, authors,
-            //   thumbnail, previewLink}}
-            // }
-              />
+            bookSearchResults.map(({title,authors,thumbnail,previewLink}) => <BookPreview />)
+            
+
+
+            
       }
           </div>
         : <NoResults

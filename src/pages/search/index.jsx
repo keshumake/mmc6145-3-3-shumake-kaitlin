@@ -42,13 +42,14 @@ export default function Search() {
         <label htmlFor="book-search">Search by author, title, and/or keywords:</label>
         <div ref={inputDivRef}>
           {/* TODO: add value and onChange props to the input element based on query/setQuery */
-          <input type="text" value={query} onChange={e => setQuery(e.query.Search)} />
         }
           <input
             ref={inputRef}
             type="text"
             name="book-search"
             id="book-search"
+            value={query} 
+            onChange={e => setQuery(e.query.Search)} 
             />
           <button type="submit">Submit</button>
         </div>

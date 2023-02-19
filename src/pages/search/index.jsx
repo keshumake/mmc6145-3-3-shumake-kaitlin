@@ -70,6 +70,7 @@ export default function Search() {
         ? <div className={styles.bookList}>
             {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
             <bookSearchResults 
+              onSubmit={setBookSearchResults}
               title={BookPreview.title}
               authors={BookPreview.authors}
               thumbnail={BookPreview.thumbnail}

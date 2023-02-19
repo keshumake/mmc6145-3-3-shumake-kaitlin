@@ -19,7 +19,7 @@ export default function Search() {
   // fetch has not finished
   // the query is unchanged
 
-  async function getItems(e) {
+  async function getItems() {
     e.preventDefault()
     const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=${query}')
     const query = await result.json()
@@ -42,7 +42,7 @@ export default function Search() {
         <label htmlFor="book-search">Search by author, title, and/or keywords:</label>
         <div ref={inputDivRef}>
           {/* TODO: add value and onChange props to the input element based on query/setQuery */
-          <input type="text" value={query} onChange={e => setQuery(e.query.value)} />
+          <input type="text" value={query} onChange={e => setQuery(e.query.Search)} />
         }
           <input
             ref={inputRef}
@@ -63,9 +63,7 @@ export default function Search() {
         ? <div className={styles.bookList}>
             {/* TODO: render BookPreview components for each search result here based on bookSearchResults */
          
-            bookSearchResults.map(({title,authors,thumbnail,previewLink}) => <BookPreview />)
-            
-
+            bookSearchResults.map(({book, index}) => <BookPreview title={title} authors={authors} thumbnail={thumbnail} previewLink={previewLink} />)
 
             
       }

@@ -19,7 +19,7 @@ export default function Search() {
   // fetch has not finished
   // the query is unchanged
 
-  async function getItems() {
+  async function getItems(e) {
     e.preventDefault()
     const result = await fetch('https://www.googleapis.com/books/v1/volumes?langRestrict=en&maxResults=16&q=${query}')
     const query = await result.json()
